@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ex. todo list +</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      #addListInput {
+        border-radius: 4px 0 0 4px;
+      }
+      #addListBtn {
+        border-radius: 0 4px 4px 0;
+        border-left: 0;
+      }
+      .li-todo {
+        li {
+          display: flex;
+          align-items: center;
+          p {
+            flex-grow: 1;
+            cursor: pointer;
+            padding: 4px 8px;
+            &:hover {
+              background-color: #ddd;
+            }
+          }
+          button {
+            right: 0;
+            color: #999;
+            padding: 8px;
+            &:hover {
+              color: red;
+            }
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>TODO LIST</h1>
+      <article class="max-w-[680px] p-10">
+        <div class="flex">
+          <label for="addListInput" class="grow">
+            <span class="sr-only">리스트 추가하기</span>
+            <input
+              type="text"
+              id="addListInput"
+              class="default h-[42px] w-full"
+              placeholder="할일 목록을 추가해보세요"
+            />
+          </label>
+          <button type="button" class="border" id="addListBtn">추가</button>
+        </div>
+        <!-- 폼으로 만들걸! 필수적으로 폼으로 만들어야 할때는 데이터가 통신? 되어야 할 때인가요? -->
+        <!-- submit? -> -->
+
+        <ol class="li-todo">
+          <li>
+            <p>오늘 저녁에는 갈비를 먹겠다.</p>
+            <button type="button" class="btn-del">삭제</button>
+          </li>
+          <li>
+            <p>후식으로 닐라닐라 바닐라를 먹겠다.</p>
+            <button type="button" class="btn-del">삭제</button>
+          </li>
+          <li>
+            <p>자기 전에 반드시 TIL을 작성하겠다.</p>
+            <button type="button" class="btn-del">삭제</button>
+          </li>
+        </ol>
+      </article>
+    </main>
+    <script src="../common.js"></script>
+    <script>
+      const $list = document.querySelector(".li-todo");
+      const $input = document.querySelector("#addListInput");
+      const $addBtn = document.querySelector("#addListBtn");
+      const $guide = document.querySelector(".guide");
+      const $delBtn = document.querySelector(".btn-del");
+
+      // 리스트 내 클릭시 이벤트 - 완료 처리, 삭제 버튼
+      // click 대신 onSubmit 으로 하면 엔터치면 입력됨
+      $list.addEventListener("click", function (event) {
+        if (event.target.nodeName === "P") {
+          event.target.classList.toggle("line-through");
+          // FIX: 뭔가 상태관리가 필요하지 않을까? 체크박스 개념의... (상태 ==> 데이터)
+        } else if (event.target.nodeName === "BUTTON") {
+          event.target === $delBtn;
+          console.log(event.target === $delBtn, "여기");
+          // confirm("삭제할까요?") &&
+          // event.target.parentElement.remove();
+          // const confirmDel = confirm("삭제할까요?");
+          // confirmDel && event.target.parentElement.remove();
+        }
+      });
+
+      // 입력하기
+      $addBtn.addEventListener("click", function (event) {
+        // console.log($input.value.length);
+        // trim 추가했으면 더 좋았겠다~
+        // 분리가능할지 한번 보기
+        if ($input.value.trim.length === 0) {
+          alert("내용을 입력하셔요");
+          return;
+        }
+
+        // createElement는 요소를 객체로 관리할수 있음
+        // 참고! innerHTML -> unsafe
+        $list.innerHTML += `
+          <li>
+            <p>${$input.value}</p>
+            <button class="btn-del">삭제</button>
+          </li>
+          `;
+
+        // 분리가능할지 한번 보기
+        $input.value = "";
+      });
+
+      // 추가과제!!
+      // 1. 배열이나 객체로 데이터(상태)를 관리하는애랑, UI 그려주는 애랑 분리하기
+      // 2. 진행여부 : 진행완료 시에도 데이터 상태 관리
+      // 3. 순서 : 내가 등록한 순서대로 TODO가 데이터가 존재하도록
+      // 4. 내용수정 : 이미 등록한 TODO 내용 수정하는 기능
+      // 나머지 기능 : 전체 삭제 등 알아서...
+    </script>
+  </body>
+</html>
