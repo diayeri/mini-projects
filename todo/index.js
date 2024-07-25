@@ -25,9 +25,11 @@ const addListUi = (list) => {
   $check.setAttribute("type", "checkbox");
   $check.id = `checkbox-${list.id}`;
   $check.checked = list.done; // 체크상태 불러오기
+  list.done && $li.classList.add("checked");
 
   $label.textContent = list.todo;
-  $ol.appendChild($li).append($check, $label, $btnDel, $btnEdit);
+  $ol.appendChild($li).append($label, $btnDel, $btnEdit);
+  $label.appendChild($check);
 };
 
 // 불러오기
@@ -145,9 +147,16 @@ $ol.addEventListener("click", async (e) => {
   } else if (e.target.tagName === "INPUT") {
     // 체크박스
     // checkbox input onchange 으로도 구현가능
-    const listId = e.target.closest("li").id;
+    const $list = e.target.closest("li");
     const checked = e.target.checked;
-    e.target.checked = await checkList(listId, checked); // 서버에서 변경된 값 받아오기
+    e.target.checked = await checkList($list.id, checked); // 서버에서 변경된 값 받아오기
+    if (e.target.checked) {
+      $list.classList.add("checked");
+      console.log($list.id, "완료했습니다");
+    } else {
+      $list.classList.remove("checked");
+      console.log($list.id, "완료 취소했습니다");
+    }
   } else if (e.target.classList.contains("btn-edit")) {
     // 수정버튼
     const text = e.target.parentNode.querySelector("label").textContent;

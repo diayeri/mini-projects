@@ -23,7 +23,7 @@
     {
       "id": "0b62",
       "todo": "2",
-      "done": false
+      "done": true
     },
     {
       "id": "71c0",
@@ -31,14 +31,9 @@
       "done": false
     },
     {
-      "id": "3a55",
-      "todo": "하하 멋지네요",
-      "done": false
-    },
-    {
       "id": "0518",
       "todo": "rhkdus",
-      "done": false
+      "done": true
     }
   ]
 }
