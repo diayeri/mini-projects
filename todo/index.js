@@ -80,7 +80,7 @@ const delList = async (id) => {
     const res = await fetch(url + "/" + id, {
       method: "DELETE",
     });
-    res.ok ? true : false;
+    return res.ok;
   } catch (error) {
     console.error(error);
   }
@@ -136,7 +136,7 @@ $ol.addEventListener("click", async (e) => {
     // 삭제버튼
     if (confirm("정말 삭제할까요?")) {
       const parentNode = e.target.parentNode;
-      const delListResult = delList(parentNode.id);
+      const delListResult = await delList(parentNode.id);
       delListResult && parentNode.remove();
       console.log("삭제되었습니다");
     } else {
