@@ -169,3 +169,14 @@ $ol.addEventListener("click", async (e) => {
     editListTodo();
   }
 });
+
+// 추가기능
+
+// 오늘 날짜 보여주기
+const $h1 = document.querySelector("h1");
+
+let today = new Date();
+const month = today.getMonth() + 1;
+const date = today.getDate();
+
+$h1.textContent = `${month}/${date} TODO LIST`;
