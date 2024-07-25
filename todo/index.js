@@ -53,8 +53,11 @@ const addList = async (todoText) => {
       }),
     });
     const newList = await req.json(); // 새로 추가된 요소
-    addListUi(newList);
-    return newList.todo;
+    if (newList.todo.length > 0) {
+      addListUi(newList);
+    } else {
+      alert("내용을 입력해주세요");
+    }
   } catch (error) {
     console.error(error);
   }

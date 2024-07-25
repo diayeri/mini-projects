@@ -1,22 +1,12 @@
 {
   "todos": [
     {
-      "id": "cc31",
-      "todo": "10101",
-      "done": true
-    },
-    {
-      "id": "e3a6",
-      "todo": "대박?",
+      "id": "28ad",
+      "todo": "1",
       "done": false
     },
     {
-      "id": "8b1b",
-      "todo": "",
-      "done": false
-    },
-    {
-      "id": "8bf9",
+      "id": "6d71",
       "todo": "",
       "done": false
     }
