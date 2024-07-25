@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "HS-Regular";
+  src: url("https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "HS-Regular";
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("https://cdn.pixabay.com/photo/2017/08/18/13/04/glass-2654887_1280.jpg");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+main {
+  background-color: #87c4f3ee;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  border: 5px solid #000;
+  border-radius: 40px;
+  padding: 20px 28px;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 10vh;
+}
+h1 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+form {
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+  }
+  input {
+    width: 40%;
+    height: 36px;
+    background-color: #ddd;
+    border: 2px solid #000;
+    border-radius: 6px;
+  }
+}
+button {
+  font-family: "HS-Regular";
+  font-size: 1.6rem;
+  min-height: 36px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  margin-left: 0.2rem;
+}
+
+ol {
+  padding-left: 24px;
+  text-align: left;
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.4rem;
+    font-size: 1.4rem;
+  }
+  input[type="checkbox"] {
+    visibility: hidden;
+    width: 0px;
+  }
+  label {
+    flex: 1;
+  }
+}
