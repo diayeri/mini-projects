@@ -54,6 +54,7 @@ const addList = async (todoText) => {
     });
     const newList = await req.json(); // 새로 추가된 요소
     addListUi(newList);
+    return newList.todo;
   } catch (error) {
     console.error(error);
   }
@@ -86,7 +87,7 @@ const delList = async (id) => {
 // 체크박스 상태가 바뀌는 것을 감지해야함
 // 상태가 바뀌면 서버 데이터 변경을 요청한다
 // 데이터가 잘 변경되었는지 확인한다
-// 데이터에 체크박스의 ui를 연결한다(?)
+// 체크박스의 ui를 데이터에 연결한다(!)
 const checkList = async (id, checked) => {
   try {
     const res = await fetch(url + "/" + id, {
@@ -96,20 +97,40 @@ const checkList = async (id, checked) => {
         done: checked,
       }),
     });
-    const body = await res.json();
-    return body.done; // resolve 된거랑 동일!!
+    const checkedList = await res.json();
+    return checkedList.done; // resolve 된거랑 동일!!
   } catch (error) {
     console.error(error);
   }
 };
 
 // 수정하기
-const editList = async (text) => {};
+// 버튼을 누르면 prompt가 열리고, 기존 텍스트가 적혀있다
+// 확인 -> 최소글자수 체크 -> 수정반영 / alert
+// ㄴ 수정이 반영되면 데이터가 서버에 patch 된다
+// ㄴ 서버의 정보를 받아와서 화면에 보여준다
+// 취소 -> 닫힘
+const editList = async (id, text) => {
+  try {
+    const res = await fetch(url + "/" + id, {
+      method: "PATCH",
+      headers: fetchHeaders,
+      body: JSON.stringify({
+        todo: text,
+      }),
+    });
+    const editedList = await res.json();
+    return editedList.todo;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // list - button, input event
 $ol.addEventListener("click", async (e) => {
   // console.log(e.target);
   if (e.target.classList.contains("btn-del")) {
+    // 삭제버튼
     if (confirm("정말 삭제할까요?")) {
       const parentNode = e.target.parentNode;
       const delListResult = delList(parentNode.id);
@@ -119,15 +140,29 @@ $ol.addEventListener("click", async (e) => {
       console.log("삭제가 취소되었습니다");
     }
   } else if (e.target.tagName === "INPUT") {
+    // 체크박스
+    // checkbox input onchange 으로도 구현가능
     const listId = e.target.closest("li").id;
     const checked = e.target.checked;
-    // console.log(listId, checked);
     e.target.checked = await checkList(listId, checked); // 서버에서 변경된 값 받아오기
-    const state = await checkList(listId, checked);
-    console.log("체크박스 상태 변경", e.target.checked);
-    console.log("체크박스 상태 변경", state);
   } else if (e.target.classList.contains("btn-edit")) {
-    console.log("edit", e.target);
+    // 수정버튼
+    const text = e.target.parentNode.querySelector("label").textContent;
+    const editListTodo = async () => {
+      const editPrompt = prompt("수정할 내용을 입력해주세요", text);
+      if (editPrompt === null) {
+        console.log("수정이 취소되었습니다");
+      } else if (editPrompt.trim().length > 0) {
+        const listId = e.target.parentNode.id;
+        e.target.parentNode.querySelector("label").textContent = await editList(
+          listId,
+          editPrompt
+        );
+      } else {
+        alert("내용을 입력해주세요");
+        editListTodo();
+      }
+    };
+    editListTodo();
   }
 });
-// checkbox input onchange
