@@ -48,7 +48,7 @@ const addList = async (todoText) => {
   try {
     const req = await fetch(url, {
       method: "POST",
-      header: fetchHeaders,
+      headers: fetchHeaders,
       body: JSON.stringify({
         todo: todoText,
         done: false,
