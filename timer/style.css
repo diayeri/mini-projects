@@ -52,10 +52,7 @@ main {
   color: #fff;
   padding: 16px 23px 15px;
   border-radius: 100px;
-  &:disabled {
-    color: #617199;
-    background-color: #324577;
-  }
+
   &.start {
     background-color: #5180ff;
   }
@@ -64,5 +61,10 @@ main {
   }
   &.reset {
     background-color: #fb7099;
+  }
+
+  &:disabled {
+    color: #617199;
+    background-color: #324577;
   }
 }
