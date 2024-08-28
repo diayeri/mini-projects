@@ -43,21 +43,26 @@ const timer = () => {
   const timerId = setInterval(() => {
     let secLeft = $sec.value;
     let minLeft = $min.value;
+    let sec = 0;
 
-    if ($min.value > 0) {
-      minLeft -= 1 / 60;
-      Number.isInteger(minLeft) && ($min.value = padNum(minLeft));
+    // 분 -> 60초 변환
+    if (Number(secLeft) === 0 && sec === 60) {
+      console.log("분-초 변환");
+      $min.value = padNum(--minLeft);
+      sec = 0;
+      $sec.value = 60;
     }
 
-    if ($sec.value <= 0) {
+    if ($hour.value <= 0 && $min.value <= 0 && $sec.value <= 0) {
       clearInterval(timerId);
       resetTimer();
       return;
     }
 
     secLeft -= 1;
+    sec++;
     $sec.value = padNum(secLeft);
-  }, 200);
+  }, 1000);
 };
 
 // 타이머 시작하기
