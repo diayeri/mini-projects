@@ -1,3 +1,9 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -19,8 +25,44 @@ footer {
 
 main {
   width: 400px;
-  min-height: 360px;
   background: linear-gradient(144.07deg, #5572bb 2.13%, #374b7c 102.97%);
   box-shadow: 20px 20px 60px 10px rgba(55, 75, 124, 0.4);
   border-radius: 16px;
+}
+
+.num {
+  display: flex;
+  flex-direction: column;
+  span {
+    color: #a5b6ee;
+  }
+  input {
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    background-color: transparent;
+  }
+}
+
+.btn {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  padding: 16px 23px 15px;
+  border-radius: 100px;
+  &:disabled {
+    color: #617199;
+    background-color: #324577;
+  }
+  &.start {
+    background-color: #5180ff;
+  }
+  &.pause {
+    background-color: #15c2b8;
+  }
+  &.reset {
+    background-color: #fb7099;
+  }
 }
