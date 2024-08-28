@@ -22,27 +22,32 @@ $btns.addEventListener("click", (e) => {
   }
 });
 
+// 숫자포맷 00으로 맞추기
+const padNum = (num) => {
+  return String(num).padStart(2, "0");
+};
+
 // 시간이 입력된 후에 버튼 활성화
 $timerClock.addEventListener("change", (e) => {
   if (e.target.classList.contains("time")) {
     $startBtn.disabled = false;
     $resetBtn.disabled = false;
-    $sec.value = String($sec.value).padStart(2, "0");
+    $sec.value = padNum($sec.value);
   }
 });
 
 // 시계 기능
 // 2. 60초가 1분, 60분이 1시간
-const timer = () => {};
-
-// 타이머 시작하기
-const startTimer = () => {
-  $startBtn.classList.add("hidden");
-  $pauseBtn.classList.remove("hidden");
-
-  // 1초씩 시간 줄어들기
+const timer = () => {
+  // 초 줄어들기
   const timerId = setInterval(() => {
-    let timeLeft = $sec.value;
+    let secLeft = $sec.value;
+    let minLeft = $min.value;
+
+    if ($min.value > 0) {
+      minLeft -= 1 / 60;
+      Number.isInteger(minLeft) && ($min.value = padNum(minLeft));
+    }
 
     if ($sec.value <= 0) {
       clearInterval(timerId);
@@ -50,9 +55,16 @@ const startTimer = () => {
       return;
     }
 
-    timeLeft -= 1;
-    $sec.value = String(timeLeft).padStart(2, "0");
-  }, 1000);
+    secLeft -= 1;
+    $sec.value = padNum(secLeft);
+  }, 200);
+};
+
+// 타이머 시작하기
+const startTimer = () => {
+  $startBtn.classList.add("hidden");
+  $pauseBtn.classList.remove("hidden");
+  timer();
 };
 
 // 타이머 멈추기
