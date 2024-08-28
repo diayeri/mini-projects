@@ -3,6 +3,7 @@ const $startBtn = document.querySelector("#startBtn");
 const $pauseBtn = document.querySelector("#pauseBtn");
 const $resetBtn = document.querySelector("#resetBtn");
 
+const $timerClock = document.querySelector("#timerClock");
 const $input = document.querySelectorAll(".time");
 const $hour = document.querySelector("#hour");
 const $min = document.querySelector("#min");
@@ -20,6 +21,14 @@ $btns.addEventListener("click", (e) => {
   }
 });
 
+// 시간이 입력된 후에 버튼 활성화
+$timerClock.addEventListener("change", (e) => {
+  if (e.target.classList.contains("time")) {
+    $startBtn.disabled = false;
+    $resetBtn.disabled = false;
+  }
+});
+
 // 시계 기능
 // 1. 1초씩 시간 줄어들기
 // 2. 60초가 1분, 60분이 1시간
@@ -27,7 +36,6 @@ const timer = () => {};
 
 // 타이머 시작하기
 const startTimer = () => {
-  // $startBtn.disabled = true;
   $startBtn.classList.add("hidden");
   $pauseBtn.classList.remove("hidden");
 
@@ -35,7 +43,9 @@ const startTimer = () => {
     let timeLeft = $sec.value;
 
     if ($sec.value <= 0) {
-      return clearInterval(timerId);
+      clearInterval(timerId);
+      resetTimer();
+      return;
     }
 
     timeLeft -= 1;
@@ -55,4 +65,6 @@ const resetTimer = () => {
   });
   $pauseBtn.classList.add("hidden");
   $startBtn.classList.remove("hidden");
+  $startBtn.disabled = true;
+  $resetBtn.disabled = true;
 };

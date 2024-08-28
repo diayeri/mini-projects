@@ -18,7 +18,10 @@
       >
         Timer
       </h2>
-      <article class="flex justify-center gap-5 pt-8 border-t border-[#5B75B4]">
+      <article
+        class="flex justify-center gap-5 pt-8 border-t border-[#5B75B4]"
+        id="timerClock"
+      >
         <div class="num">
           <span class="text-xs">HRS</span>
           <label for="hour" class="sr-only">hour</label>
@@ -32,15 +35,19 @@
         <div class="num">
           <span class="text-xs">SEC</span>
           <label for="sec" class="sr-only">sec</label>
-          <input type="number" id="sec" value="03" class="time" />
+          <input type="number" id="sec" value="00" class="time" />
         </div>
       </article>
       <div class="mt-10 gap-3 flex justify-center" id="btns">
-        <button type="button" class="btn start" id="startBtn">START</button>
+        <button type="button" class="btn start" id="startBtn" disabled>
+          START
+        </button>
         <button type="button" class="btn pause hidden" id="pauseBtn">
           PAUSE
         </button>
-        <button type="button" class="btn reset" id="resetBtn">RESET</button>
+        <button type="button" class="btn reset" id="resetBtn" disabled>
+          RESET
+        </button>
       </div>
     </main>
     <footer class="pb-[103px] text-sm">ⓒ WENIV Corp.</footer>
